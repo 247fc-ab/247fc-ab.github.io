@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <title>247 Fighting Championships</title>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --arrow-size: 24px;
+      --arrow-travel: 2vh;
+      --border-thickness: 3px;
+
+      --brand-color-yellow: #FCB927;
+      --brand-color-yellow-low: #D2991F;
+      --brand-color-white: #FEFEFE;
+      --brand-color-black: #010101;
+      --brand-color-red: #FC5226;
+      --brand-color-blue: #2672FC;
+
+      --base-scene-z-index: 100;
+      --keygap: 2em;
+    }
+
+    @keyframes arrowbounce {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(var(--arrow-travel));
+      }
+    }
+
+    @keyframes marqueescroll {
+      from {
+        transfrom: translateX(0);
+      }
+      to {
+        transform: translateX(calc(-100% - var(--keygap)));
+      }
+    }
+
+    body {
+      font-family: "Bricolage Grotesque", sans-serif;
+      font-optical-sizing: auto;
+      font-size: 16px;
+    }
+
+    @media screen and (width < 500px) {
+      html, body {
+        overflow-x: clip;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @media screen and (width >= 500px) {
+      h1, h2, h3, h4, h5, h6 {
+        line-height: 1cap;
+      }
+    }
+
+    section {
+      position: sticky;
+      top: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      width: 100%;
+    }
+
+    #landing {
+      max-height: 100vh;
+      max-height: 100svh;
+    }
+
+    #fightcard {
+      min-height: 100vh;
+      min-height: 100svh;
+    }
+
+    .fighterhighlight {
+      max-height: 100vh;
+      max-height: 100dvh;
+    }
+
+    @media screen and (width >= 500px) {
+      #landing {
+        background-image:
+          linear-gradient(rgba(255,255,255, 0.90), rgba(255,255,255,0.90)),
+          url('images/247hl-02.avif');
+      }
+    }
+
+    @media screen and (width < 500px) {
+      #landing {
+        background-image:
+          linear-gradient(
+            rgba(255,255,255, 1) 17%,
+            rgba(255,255,255, 0.80),
+            rgba(255,255,255, 1) 83%
+          ),
+          url('images/247hl-02.avif');
+        background-size: 200% auto;
+        background-position: top 50% left 50%;
+      }
+    }
+
+    #landing {
+      /* background-color: var(--brand-color-white); */
+      --scene-no: 1;
+      --zi: calc(var(--base-scene-z-index) * var(--scene-no));
+
+      z-index: var(--zi);
+
+      display: grid;
+      grid-template-columns: 11fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+
+      h1 {
+        font-weight: 800;
+        font-style: normal;
+        font-size: 25vw;
+        font-stretch: 100;
+      }
+
+      h1 {
+        grid-row: 1;
+        align-self: start;
+        justify-self: left;
+        width: 100%;
+      }
+
+      #scrollarrow {
+        grid-row: 1 / -1;
+        width: var(--border-thickness);
+        height: calc(93vh + var(--arrow-travel));
+        background-color: var(--brand-color-yellow);
+        position: relative;
+        top: calc(-1*var(--arrow-travel));
+        animation: 0.3s cubic-bezier(.47,0,.74,.71) alternate infinite arrowbounce;
+      }
+
+      #scrollarrow::before, #scrollarrow::after {
+        content: '';
+        position: absolute;
+        padding: var(--arrow-size);
+        bottom: calc(-1*var(--arrow-size));
+        outline: var(--border-thickness) solid var(--brand-color-yellow);
+        border-radius: var(--arrow-size);
+      }
+
+      #scrollarrow::before {
+        right: var(--border-thickness);
+        clip-path: rect(calc(var(--border-thickness) - 1px) auto calc(var(--arrow-size) - 1px) calc(var(--arrow-size) / 2 + var(--arrow-size) - 1px));
+      }
+
+      #scrollarrow::after {
+        left: var(--border-thickness);
+        clip-path: rect(calc(var(--border-thickness) - 1px) calc(var(--arrow-size) / 2 + 1px) calc(var(--arrow-size) - 1px) auto);
+      }
+        
+      ul {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: oblique -10deg;
+        font-size: 4em;
+      }
+
+      ul {
+        grid-row: 2;
+        align-self: end;
+        list-style: none;
+        z-index: calc(var(--zi) + 10);
+
+        a {
+          text-decoration: none;
+          color: black;
+
+          display: inline-block;
+          line-height: calc(1cap - 5px);
+          padding-left: 6vw;
+          width: 100%;
+        }
+
+        a:hover {
+          border-bottom: solid var(--border-thickness) var(--brand-color-yellow);
+        }
+      }
+
+      h2 {
+        font-weight: 300;
+        font-style: normal;
+        font-size: 25vw;
+        font-variation-settings: {
+          "wdth" 100;
+        }
+      }
+
+      h2 {
+        grid-row: 3;
+        align-self: end;
+        justify-self: left;
+      }
+    }
+
+    #fightcard {
+      background-color: var(--brand-color-yellow);
+      --topOffset: 0;
+      top: var(--topOffset);
+      --scene-no: 2;
+      --zi: calc(var(--base-scene-z-index) * var(--scene-no));
+
+      z-index: var(--zi);
+
+      font-weight: 200;
+      font-style: normal;
+      font-size: clamp(3rem, 2.75rem + 1.5vw, 4rem);
+      font-stretch: 90%;
+      color: var(--brand-color-yellow-low);
+
+      display: grid;
+      align-items: center;
+
+      #marquee {
+        background-color: var(--brand-color-black);
+        color: var(--brand-color-yellow);
+
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-size: clamp(2rem, 1.75rem + 1.5vw, 3rem);
+        font-style: oblique -10deg;
+
+        display: flex;
+        gap: var(--keygap);
+        overflow: hidden;
+        margin: 0.5em auto;
+
+        position: sticky;
+        top: 0;
+        z-index: calc(var(--zi) + 60);
+
+
+        .keycontent {
+          background-color: var(--brand-color-black);
+          list-style: none;
+          animation: marqueescroll 90s linear infinite;
+
+          display: flex;
+          flex-shrink: 0;
+          min-width: 100%;
+          justify-content: space-around;
+          gap: var(--keygap);
+        }
+      }
+
+      #marquee:hover .keycontent {
+        animation-play-state: paused;
+      }
+
+      .matchup {
+        display: grid;
+
+        > a:first-of-type {
+          grid-area: red;
+        }
+
+        > span:first-of-type {
+          grid-area: vs;
+        }
+
+        > a:last-of-type {
+          grid-area: blue;
+        }
+      }
+
+      .matchup:hover {
+        color: var(--brand-color-black);
+      }
+
+      @media screen and (width >= 500px) {
+        .matchup:first-of-type {
+          padding-top: 1em;
+        }
+        .matchup:last-of-type {
+          padding-bottom: 1em;
+        }
+        .matchup {
+          align-items: baseline;
+          grid-template-columns: 1fr 1ch 1ch 1ch 1ch 1ch 1fr;
+          grid-template-rows: 1fr;
+          > a:first-of-type {
+            justify-self: right;
+          }
+
+          > a:last-of-type {
+            justify-self: left;
+          }
+          > img.fighterpreview {
+            opacity: 0;
+            transform: translate(0, 0) scale(0);
+
+            position: fixed;
+            top: 5vh;
+
+            transition:
+              opacity 500ms ease-out,
+              transform 500ms ease-out;
+          }
+
+          > img.red {
+            left: 0;
+          }
+
+          > img.blue {
+            right: 0;
+          }
+
+          > a:first-of-type:hover ~ img.red,
+          > a:last-of-type:hover ~ img.blue {
+            opacity: 65%;
+            transition: opacity 250ms ease-in 150ms;
+          }
+
+          > a:first-of-type:hover ~ img.red {
+            transform: translate(10vw, 5vh) scale(1);
+            transition: transform 500ms cubic-bezier(.79,.14,.15,.86) 150ms;
+          }
+
+          > a:last-of-type:hover ~ img.blue {
+            transform: translate(-10vw, 10vh) scale(1);
+            transition: transform 500ms cubic-bezier(.79,.14,.15,.86) 150ms;
+          }
+        }
+        .matchup:nth-child(odd) {
+          grid-template-areas: "red . vs vs . blue blue";
+        }
+
+        .matchup:nth-child(even) {
+          grid-template-areas: "red red . vs vs . blue";
+        }
+
+      }
+
+      @media screen and (width < 500px) {
+        .matchup:first-of-type {
+          padding-top: 2em;
+        }
+        .matchup {
+          padding-bottom: 2em;
+          align-items: center;
+          grid-template-columns: 1fr;
+          grid-template-rows: 1em 1em 1em;
+          grid-template-areas:
+            "red"
+            "vs"
+            "blue";
+          justify-items: stretch;
+
+          > img.fighterpreview {
+            display: none;
+          }
+
+          > span::before {
+            content: "\00a0";
+          }
+        }
+        .matchup:nth-child(odd) {
+          /*justify-items: right;*/
+        }
+
+        .matchup:nth-child(even) {
+          /*justify-items: left;*/
+        }
+
+      }
+
+      .matchup {
+        > a {
+          text-decoration: none;
+          color: inherit;
+          font-size: 1.5em;
+          z-index: calc(var(--zi) + 50)
+        }
+        
+      }
+
+    }
+
+
+    .fighterhighlight.red {
+      left: -100vw;
+      left: -100dvw;
+      transition: left 400ms ease-out;
+    }
+
+    .fighterhighlight.blue {
+      left: 100vw;
+      left: 100dvw;
+      transition: left 400ms ease-out;
+    }
+
+    .fighterhighlight.red:target,
+    .fighterhighlight.blue:target {
+      left: 0;
+      transition: left 150ms ease-in;
+      z-index: calc(var(--zi) + 70);
+    }
+
+    .fighterhighlight {
+      overflow: hidden; /* temp */
+      position: fixed;
+      top: 0;
+      z-index: calc(var(--zi) + 60);
+      height: 100vh;
+      height: 100dvh;
+      width: 100vw;
+      width: 100dvw;
+      background-color: var(--brand-color-white);
+      display: grid;
+      font-size: clamp(3rem, 2.75rem + 1.5vw, 4rem);
+    }
+
+    @media screen and (width >= 500px) {
+      .fighterhighlight {
+        grid-template-columns: 50%;
+        grid-template-areas:
+          "img red"
+          "img biowrap"
+          "img blue"
+          "img c2a";
+      }
+    }
+
+    @media screen and (width < 500px) {
+      .fighterhighlight {
+        grid-template-areas:
+          "img"
+          "biowrap"
+          "c2a";
+
+        row-gap: 1rem;
+      }
+    }
+
+    .asfollows {
+      color: var(--brand-color-yellow);
+    }
+
+    img {
+      grid-area: img;
+      width: 100%;
+      object-fit: contain;
+    }
+
+    div.cornerwrap {
+      overflow: hidden;
+    }
+
+    @media screen and (width >= 500px) {
+      img {
+        height: 100vh;
+        height: 100dvh;
+      }
+
+      div.cornerwrap.red {
+        grid-area: red;
+      }
+
+      div.cornerwrap.blue {
+        grid-area: blue;
+        align-content: end;
+      }
+
+      a.redtoggle, a.bluetoggle {
+        height: 100px;
+        width: 100px;
+        float: right;
+      }
+      a.redtoggle {
+        background-color: var(--brand-color-red);
+        transform: translate(50px, -50px) rotate(45deg);
+      }
+
+      a.bluetoggle {
+        background-color: var(--brand-color-blue);
+        transform: translate(50px, 50px) rotate(45deg);
+      }
+
+    }
+
+    @media screen and (width < 500px) {
+      img {
+        height: 50vh;
+        height: 50dvh;
+      }
+
+      div.cornerwrap.red {
+        grid-row: img-start;
+        position: absolute;
+        bottom: 0;
+        left: 0
+      }
+
+      div.cornerwrap.blue {
+        grid-row: img-start;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      a.redtoggle, a.bluetoggle {
+        display: block;
+        height: 100px;
+        width: 100px;
+      }
+
+      a.redtoggle {
+        background-color: var(--brand-color-red);
+        transform: translate(-50px, 50px) rotate(45deg);
+      }
+
+      a.bluetoggle {
+        background-color: var(--brand-color-blue);
+        transform: translate(50px, 50px) rotate(45deg);
+      }
+    }
+
+
+    div.bio {
+      grid-area: biowrap;
+      display: grid;
+      grid-template-areas:
+        "weight height record"
+        "name name name"
+        "outof outof outof"
+        "bio bio bio";
+
+      color: var(--brand-color-black);
+      margin: 0 6vw;
+
+      p {
+        font-size: clamp(1rem, 0.75rem + 1.5vw, 2rem);
+        font-stretch: 100;
+        font-weight: 300;
+      }
+      p.weight { grid-area: weight; }
+      p.height { grid-area: height; }
+      p.record { grid-area: record; }
+      p#outof { grid-area: outof; }
+      p#bio { grid-area: bio; }
+
+      h3 {
+        grid-area: name;
+        font-size: clamp(3rem, 2.75rem + 1.5vw, 4rem);
+        font-stretch: 100%;
+        font-weight: 800;
+      }
+
+    }
+
+    @media screen and (width >= 500px ) {
+      #c2a {
+        border-top: solid var(--brand-color-black) var(--border-thickness);
+      }
+    }
+
+    @media screen and (width < 500px ) {
+      #c2a {
+        border-top: none;
+      }
+    }
+
+    #c2a {
+      grid-area: c2a;
+      display: grid;
+      z-index: 100;
+      grid-template-columns: 11fr 1fr;
+      background-color: var(--brand-color-white);
+
+
+      ul {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 300;
+        font-style: oblique -10deg;
+        font-size: clamp(2rem, 1.75rem + 1.5vw, 3rem);
+      }
+
+      ul {
+        list-style: none;
+        z-index: calc(var(--zi) + 10);
+
+        a {
+          text-decoration: none;
+          color: black;
+
+          display: inline-block;
+          line-height: calc(1cap - 5px);
+          padding-left: 6vw;
+          width: calc(100% - 6vw);
+        }
+
+        a:hover {
+          border-bottom: solid var(--border-thickness) var(--brand-color-yellow);
+        }
+      }
+    }
+
+    #footer {
+      --scene-no: 3;
+      --zi: calc(var(--base-scene-z-index) * var(--scene-no));
+
+      z-index: var(--zi);
+      background-color: var(--brand-color-white);
+
+
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+  </style>
+</head>
+<body>
+  <section id="landing">
+    <h1>247FC</h1>
+    <div id="scrollarrow"></div>
+    <ul>
+      <li><a href='https://www.eventbrite.com/e/brawl-in-the-burgh-24-live-mma-tickets-1010862947287'>tickets</a></li>
+      <li><a href='https://www.stream247live.com/programs/brawl-burgh-24-watch-live-stream-ppv-247-fighting-championships-pittsburgh-mma'>live stream</a></li>
+    </ul>
+    <h2>BITB24</h2>
+  </section>
+  <section id="fightcard">
+    <div id="marquee">
+      <ul class="keycontent">
+        <li>Brawl in the Burgh 24</li>
+        <li>Saturday Oct. 26</li>
+        <li>Greater Pittsburgh Sports Complex</li>
+        <li>Coraopolis, PA</li>
+      </ul>
+      <ul class="keycontent" aria-hidden="true">
+        <li>Brawl in the Burgh 24</li>
+        <li>Saturday Oct. 26</li>
+        <li>Greater Pittsburgh Sports Complex</li>
+        <li>Coraopolis, PA</li>
+      </ul>
+    </div>
+    <div class="matchup">
+      <a href="#seibert">SEIBERT</a><span>VS</span><a href="#alvarez">ALVAREZ</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <!--
+      <img class="red fighterpreview" loading="lazy"
+        src="images/bitb23/previews/bitb23-patton-8x9-768x864-wm.jpg"
+        srcset="images/bitb23/previews/bitb23-patton-8x9-382x430-wm.jpg 0.5x,
+                images/bitb23/previews/bitb23-patton-8x9-768x864-wm.jpg 1x,
+                images/bitb23/previews/bitb23-patton-8x9-1526x1728-wm.jpg 2x,
+                images/bitb23/previews/bitb23-patton-8x9-2304x2592-wm.jpg 3x,
+                images/bitb23/previews/bitb23-patton-8x9-fr-wm.jpg 4x"
+      />
+      -->
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <article class="fighterhighlight red" id="seibert">
+        <img class="red" style="filter: drop-shadow(0px 0px 1px var(--brand-color-black));"
+          src="images/default/portraits/jd-fighter.png"
+        />
+        <!--
+        <img class="red" style="filter: drop-shadow(0px 0px 1px var(--brand-color-black));"
+          src="images/bitb23/portraits/bitb23-port-patton-8x9-768x864-wm.png"
+        srcset="images/bitb23/portraits/bitb23-port-patton-8x9-384x432-wm.png 0.5x,
+                images/bitb23/portraits/bitb23-port-patton-8x9-768x864-wm.png 1x,
+                images/bitb23/portraits/bitb23-port-patton-8x9-1526x1728-wm.png 2x,
+                images/bitb23/portraits/bitb23-port-patton-8x9-2302x2592-wm.png 3x,
+                images/bitb23/portraits/bitb23-port-patton-8x9-fr-wm.png 4x"
+        />
+        -->
+        <div class="cornerwrap red">
+          <a class="redtoggle" href="#seibert"></a>
+        </div>
+        <div class="bio">
+          <p class="weight"><span class="asfollows">Weight</span> 135lbs</p>
+          <p class="height"><span class="asfollows">Height</span> 5' 9"</p>
+          <p class="record"><span class="asfollows">Record</span> 2-0</p>
+          <h3>LUCAS SEIBERT</h3>
+          <p id="outof"><span class="asfollows">Fighting out of</span> Pittsburgh, PA</p>
+          <p id="bio">Lucas "The Sniper" Seibert, age 24, representing Stout PGH is fighting on 10/26 in a professional bantamweight bout as our main event of Brawl in the Burgh 24!</p>
+        </div>
+        <div class="cornerwrap blue">
+          <a class="bluetoggle" href="#alvarez"></a>
+        </div>
+        <div id="c2a">
+          <ul>
+            <li><a href='https://www.eventbrite.com/e/brawl-in-the-burgh-24-live-mma-tickets-1010862947287'>tickets</a></li>
+            <li><a href='https://www.stream247live.com/programs/brawl-burgh-24-watch-live-stream-ppv-247-fighting-championships-pittsburgh-mma'>live stream</a></li>
+            <li><a href='#fightcard'>fight card</a></li>
+          </ul>
+          <div id="scrollarrowembed"></div>
+        </div>
+      </article>
+      <article class="fighterhighlight blue" id="alvarez">
+        <img class="blue" style="filter: drop-shadow(0px 0px 1px var(--brand-color-black));"
+          src="images/default/portraits/jd-fighter.png"
+        />
+        <div class="cornerwrap red">
+          <a class="redtoggle" href="#seibert"></a>
+        </div>
+        <div class="bio">
+          <p class="weight"><span class="asfollows">Weight</span> 135lbs</p>
+          <p class="height"><span class="asfollows">Height</span> 5' 8"</p>
+          <p class="record"><span class="asfollows">Record</span> 4-9</p>
+          <h3>EDDIE ALVAREZ</h3>
+          <p id="outof"><span class="asfollows">Fighting out of</span> Pennsylvania</p>
+          <p id="bio">Eddie "Panamaniac" Alvarez, age 37, representing Renzo Gracie Pennsylvania is fighting on 10/26 in a professional bantamweight bout as our main event of Brawl in the Burgh 24!</p>
+        </div>
+        <div class="cornerwrap blue">
+          <a class="bluetoggle" href="#alvarez"></a>
+        </div>
+        <div id="c2a">
+          <ul>
+            <li><a href='https://www.eventbrite.com/e/brawl-in-the-burgh-24-live-mma-tickets-1010862947287'>tickets</a></li>
+            <li><a href='https://www.stream247live.com/programs/brawl-burgh-24-watch-live-stream-ppv-247-fighting-championships-pittsburgh-mma'>live stream</a></li>
+            <li><a href='#fightcard'>fight card</a></li>
+          </ul>
+          <div id="scrollarrowembed"></div>
+        </div>
+      </article>
+    </div>
+    <div class="matchup">
+      <a href="#visokey">VISOKEY</a><span>VS</span><a href="#petrides">PETRIDES</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+    </div>
+    <div class="matchup">
+      <a href="#worthy">WORTHY</a><span>VS</span><a href="#harnish">HARNISH</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+    </div>
+    <div class="matchup">
+      <a href="#martin">MARTIN</a><span>VS</span><a href="#rios">RIOS</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+    </div>
+    <div class="matchup">
+      <a href="#dangelo">D'ANGELO</a><span>VS</span><a href="#geissinger">GEISSINGER</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+    </div>
+    <div class="matchup">
+      <a href="#mitchell">MITCHELL</a><span>VS</span><a href="#bolyard">BOLYARD</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+    </div>
+    <div class="matchup">
+      <a href="#perry">PERRY</a><span>VS</span><a href="#murray">MURRAY</a>
+      <img class="red fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+      <img class="blue fighterpreview" loading="lazy"
+        src="images/default/previews/rafters.jpg"
+      />
+    </div>
+  </section>
+</body>
+</html>
